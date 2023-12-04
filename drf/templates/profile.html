@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="RU">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'auths/css/index.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>WELCOME</p>
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+
+</body>
+</html>

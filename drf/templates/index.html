@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'auths/css/index.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+      <form id="login" action="{% url 'index' %}" method="POST">
+        {{ login_form }}
+        {% csrf_token %}
+        <button type="submit">Войти</button>
+        {% if messages %}
+             {% for message in messages %}
+             <p style="display: block; margin-left: 80px;">{{ message }}</p>
+             {% endfor %}
+        {% endif %}
+      </form>
+
+    </div>
+</body>
+</html>
