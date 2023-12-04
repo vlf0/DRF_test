@@ -66,7 +66,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 # Path for redirect after success log-in
-LOGIN_URL = 'profile/'
+LOGIN_URL = '/'
 
 # LOGOUT_REDIRECT_URL = '/'
 
