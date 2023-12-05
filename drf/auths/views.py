@@ -6,29 +6,54 @@ from django.contrib.auth.views import LogoutView
 from .forms import LogIn, CategoryCreatingForm
 from .models import Woman, Category
 from rest_framework import generics
-
+from django.views import View
 
 CustomUser = get_user_model()
 
 
-def index(request):
-    if request.method == 'POST':
+class IndexProfileView(View):
+
+    def get(self, request):
+        return render(request, 'index.html', {'login_form': LogIn()})
+
+    def post(self, request):
         user = authenticate(username=request.POST.get('name'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
             return redirect('profile')
         messages.error(request, 'incorrect log/pass.')
-    return render(request, 'index.html', {'login_form': LogIn()})
+        return render(request, 'index.html', {'login_form': LogIn()})
+
+# def index(request):
+#     if request.method == 'POST':
+#         user = authenticate(username=request.POST.get('name'), password=request.POST.get('password'))
+#         if user is not None:
+#             login(request, user)
+#             return redirect('profile')
+#         messages.error(request, 'incorrect log/pass.')
+#     return render(request, 'index.html', {'login_form': LogIn()})
 
 
-def profile(request):
-    if request.method == 'POST':
+# def profile(request):
+#     if request.method == 'POST':
+#         if CategoryCreatingForm(request.POST).is_valid():
+#             new_category = Category(name=request.POST.get('name'))
+#             new_category.save()
+#             messages.info(request, f'New category {new_category.name} was added success', extra_tags='added')
+#     return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+
+
+class UserProfileView(View):
+
+    def get(self, request):
+        return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+
+    def post(self, request):
         if CategoryCreatingForm(request.POST).is_valid():
             new_category = Category(name=request.POST.get('name'))
             new_category.save()
             messages.info(request, f'New category {new_category.name} was added success', extra_tags='added')
-    return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
-
+            return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
 
 class CustomLogout(LogoutView):
     template_name = 'index.html'
