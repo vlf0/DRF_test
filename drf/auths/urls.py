@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.IndexProfileView.as_view(), name='index'),
     path('out/', views.CustomLogout.as_view(), name='logout'),
     path('profile/', views.UserProfileView.as_view(), name='profile'),
+    path('api/v1/womenlist/', views.WomanAPIView.as_view()),
 
 ]

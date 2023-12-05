@@ -7,8 +7,15 @@ from .forms import LogIn, CategoryCreatingForm
 from .models import Woman, Category
 from rest_framework import generics
 from django.views import View
+from .serializers import WomanSerializer
 
 CustomUser = get_user_model()
+
+
+class WomanAPIView(generics.ListAPIView):
+    queryset = Woman.objects.all()
+    serializer_class = WomanSerializer
+
 
 
 class IndexProfileView(View):
@@ -24,24 +31,6 @@ class IndexProfileView(View):
         messages.error(request, 'incorrect log/pass.')
         return render(request, 'index.html', {'login_form': LogIn()})
 
-# def index(request):
-#     if request.method == 'POST':
-#         user = authenticate(username=request.POST.get('name'), password=request.POST.get('password'))
-#         if user is not None:
-#             login(request, user)
-#             return redirect('profile')
-#         messages.error(request, 'incorrect log/pass.')
-#     return render(request, 'index.html', {'login_form': LogIn()})
-
-
-# def profile(request):
-#     if request.method == 'POST':
-#         if CategoryCreatingForm(request.POST).is_valid():
-#             new_category = Category(name=request.POST.get('name'))
-#             new_category.save()
-#             messages.info(request, f'New category {new_category.name} was added success', extra_tags='added')
-#     return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
-
 
 class UserProfileView(View):
 
@@ -54,6 +43,7 @@ class UserProfileView(View):
             new_category.save()
             messages.info(request, f'New category {new_category.name} was added success', extra_tags='added')
             return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+
 
 class CustomLogout(LogoutView):
     template_name = 'index.html'
