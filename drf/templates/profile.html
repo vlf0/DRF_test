@@ -9,11 +9,21 @@
     <title>Title</title>
 </head>
 <body>
-<p>WELCOME</p>
+    <div>
     <form action="{% url 'logout' %}" method="POST">
         {% csrf_token %}
         <button type="submit">Выйти</button>
     </form>
-
+    <form action="{% url 'profile' %}" method="POST">
+        {{ new_category }}
+        {% csrf_token %}
+        <button type="submit">Добавить</button>
+    </form>
+        {% for message in messages %}
+            {% if 'added' in message.tags %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </div>
 </body>
 </html>
