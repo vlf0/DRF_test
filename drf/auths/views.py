@@ -3,16 +3,35 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LogoutView
+from django.views import View
+from django.forms import model_to_dict
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .forms import LogIn, CategoryCreatingForm
 from .models import Woman, Category
-from rest_framework import generics
-from django.views import View
 from .serializers import WomanSerializer
 
 CustomUser = get_user_model()
 
 
-class WomanAPIView(generics.ListAPIView):
+class WomanAPIView(APIView):
+
+    def get(self, request):
+        obj = Woman.objects.all().values()
+        return Response({'posts': list(obj)})
+
+    def post(self, request):
+        new_obj = Woman.objects.create(
+            title=request.data.get('title'),
+            content=request.data.get('content'),
+            is_alive=request.data.get('is_alive'),
+            kind_id=request.data.get('kind_id')
+        )
+        return Response({'new_post': model_to_dict(new_obj)})
+
+
+class WomanListAPIView(generics.ListAPIView):
     queryset = Woman.objects.all()
     serializer_class = WomanSerializer
 
