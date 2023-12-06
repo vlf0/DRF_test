@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, get_user_model, login
+from django.contrib.auth.models import AnonymousUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -17,24 +18,61 @@ CustomUser = get_user_model()
 
 class WomanAPIView(APIView):
 
-    def get(self, request):
-        obj = Woman.objects.all().values()
-        return Response({'posts': list(obj)})
+    def get(self, request, **kwargs):
+        if pk := kwargs.get('pk'):
+            try:
+                obj = Woman.objects.get(pk=pk)
+                obj_sr = WomanSerializer(obj)
+                return Response(
+                                {'post': {'title': obj_sr.data.get('title'),
+                                          'kind_name': obj_sr.data.get('kind_name')
+                                          }
+                                 }
+                                )
+            except:
+                return Response({'error': 'Not exists'})
+        obj = Woman.objects.all()
+        return Response({'posts': WomanSerializer(obj, many=True).data})
 
     def post(self, request):
-        new_obj = Woman.objects.create(
-            title=request.data.get('title'),
-            content=request.data.get('content'),
-            is_alive=request.data.get('is_alive'),
-            kind_id=request.data.get('kind_id')
-        )
-        return Response({'new_post': model_to_dict(new_obj)})
+        serializer = WomanSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'new_post': serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        if pk is None:
+            return Response({'error': 'Method PUT is not allowed'})
+        try:
+            instance = Woman.objects.get(pk=pk)
+        except:
+            return Response({'error': 'Not exists'})
+        serializer = WomanSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'renewed post': serializer.data})
+
+    def delete(self, request, **kwargs):
+        pk = kwargs.get('pk')
+        if pk is None:
+            return Response({'error': 'Method DELETE is not allowed'})
+        try:
+            deleting_obj = Woman.objects.get(pk=pk)
+        except:
+            return Response({'error': 'Not exists'})
+        deleting_obj_sr = WomanSerializer(deleting_obj)
+        deleting_obj.delete()
+        return Response({'post deleted': {'title': deleting_obj_sr.data.get('title'),
+                                          'kind_name': deleting_obj_sr.data.get('kind_name')
+                                          }
+                         }
+                        )
 
 
 class WomanListAPIView(generics.ListAPIView):
     queryset = Woman.objects.all()
     serializer_class = WomanSerializer
-
 
 
 class IndexProfileView(View):
@@ -54,7 +92,10 @@ class IndexProfileView(View):
 class UserProfileView(View):
 
     def get(self, request):
-        return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+        if not request.user.is_anonymous:
+            return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+        messages.info(request, 'Access not allowed. Please do authorizing.')
+        return render(request, 'access.html')
 
     def post(self, request):
         if CategoryCreatingForm(request.POST).is_valid():

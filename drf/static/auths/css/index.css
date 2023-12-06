@@ -1,4 +1,7 @@
 body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background-color: #69859e;
   font-family: Arial, sans-serif
 }
@@ -40,4 +43,18 @@ button {
 
 button:hover {
   background-color: #1a5276;
+}
+
+a.auth_link {
+  display: inline-block;
+  margin: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  border: 1px solid #4CAF50; /* Green border */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s;
 }
