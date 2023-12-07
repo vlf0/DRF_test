@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
-from .models import Woman
+from .models import Woman, DeletedPost
 
 
 # class WomanSerializer(serializers.ModelSerializer):
@@ -9,13 +9,6 @@ from .models import Woman
 #     class Meta:
 #         model = Woman
 #         fields = '__all__'
-
-
-class WomenModel:
-
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
 
 
 class WomanSerializer(serializers.Serializer):
@@ -40,4 +33,13 @@ class WomanSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+
+class DeletedPostSerializer(serializers.Serializer):
+    row_id = serializers.IntegerField()
+    title = serializers.CharField(max_length=255)
+    delete_time = serializers.DateTimeField(read_only=True)
+
+    def create(self, validated_data):
+        deleted_post = DeletedPost.objects.create(**validated_data)
+        return deleted_post
 

@@ -23,6 +23,9 @@
             {% if 'added' in message.tags %}
                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endif %}
+            {% if 'acc_created' in message.tags %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endif %}
         {% endfor %}
     </div>
 </body>

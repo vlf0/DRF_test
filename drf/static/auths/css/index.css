@@ -7,6 +7,8 @@ body {
 }
 
 div {
+  display: inline-grid;
+  align-items: center;
   width: 300px;
   margin: 50px auto;
   padding: 20px;
@@ -32,6 +34,7 @@ input {
 }
 
 button {
+  font-size: 15px;
   width: 100%;
   background-color: #2980b9;
   color: #fff;
@@ -57,4 +60,8 @@ a.auth_link {
   border: 1px solid #4CAF50; /* Green border */
   border-radius: 5px; /* Rounded corners */
   transition: background-color 0.3s;
+}
+
+a.auth_link:hover {
+  background-color: #276b2a;
 }

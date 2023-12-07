@@ -20,3 +20,8 @@ class Category(models.Model):
         return self.name
 
 
+class DeletedPost(models.Model):
+    row_id = models.IntegerField()
+    title = models.CharField(max_length=255)
+    delete_time = models.DateTimeField(auto_now_add=True)
+

@@ -9,15 +9,15 @@
 </head>
 <body>
     <div>
-      <form id="login" action="{% url 'index' %}" method="POST">
-        {{ login_form }}
+      <form id="login" action="{% url 'registration' %}" method="POST">
+        {{ reg_form }}
         {% csrf_token %}
-        <button type="submit">Войти</button>
-      </form>
+        <button type="submit">Зарегистрироваться</button>
         {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-        <a href="{% url 'registration' %}" class="auth_link">Регистрация</a>
+      </form>
+
     </div>
 </body>
 </html>
