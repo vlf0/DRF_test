@@ -60,6 +60,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+
+        #  Make accessible API endpoints via browser
+        'rest_framework.renderers.BrowsableAPIRenderer'
+        ]
+}
+
+
+
 # My custom user model
 AUTH_USER_MODEL = 'users.CustomUser'
 

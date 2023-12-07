@@ -9,7 +9,6 @@ urlpatterns = [
     path('out/', views.CustomLogout.as_view(), name='logout'),
     path('profile/', views.UserProfileView.as_view(), name='profile'),
     path('api/v1/womenlist/', api_views.WomanListAPIView.as_view()),
-    path('api/v1/test/', api_views.WomanAPIView.as_view()),
-    path('api/v1/test/<int:pk>/', api_views.WomanAPIView.as_view()),
-
+    path('api/v1/test/create/', api_views.WomanCreateAPIView.as_view()),
+    path('api/v1/test/<int:pk>/', api_views.WomanDetailAPIView.as_view()),
 ]

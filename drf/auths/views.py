@@ -29,8 +29,7 @@ class UserRegistration(View):
             CustomUser.objects.create_user(username=username,
                                            password=password,
                                            first_name=first_name,
-                                           last_name=last_name,
-                                           is_active=True)
+                                           last_name=last_name)
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.info(request, 'Your account created success, Welcome!', extra_tags='acc_created')
