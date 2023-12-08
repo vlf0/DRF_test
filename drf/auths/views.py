@@ -1,82 +1,53 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.views import View
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.views import LogoutView
-from django.contrib import messages
-from .forms import UserLogInForm, CategoryCreatingForm, UserRegistrationForm
-from .models import Category
-
+from rest_framework import viewsets, generics, permissions
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from .models import Woman, Category
+from .serializers import WomanSerializer
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from .permissions import *
 CustomUser = get_user_model()
 
 
-class UserRegistration(View):
-
-    def get(self, request):
-        return render(request, 'registration.html', {'reg_form': UserRegistrationForm()})
-
-    def post(self, request):
-        reg_data = UserRegistrationForm(request.POST)
-        if reg_data.is_valid():
-            username = reg_data.cleaned_data.get('name')
-
-            if CustomUser.objects.filter(username=username):
-                messages.info(request, 'This nickname already exists.')
-                return redirect('registration')
-            password = reg_data.cleaned_data.get('password')
-            first_name = reg_data.cleaned_data.get('first_name')
-            last_name = reg_data.cleaned_data.get('last_name')
-            CustomUser.objects.create_user(username=username,
-                                           password=password,
-                                           first_name=first_name,
-                                           last_name=last_name)
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.info(request, 'Your account created success, Welcome!', extra_tags='acc_created')
-            return redirect('profile')
-        messages.info(request, 'Invalid data.')
-        return redirect('registration')
+# class WomanViewSet(viewsets.ModelViewSet):
+#     queryset = Woman.objects.all()
+#     serializer_class = WomanSerializer
+#
+#     # Set up custom permissions
+#     def get_permissions(self):
+#         if self.action == 'create':
+#             permission_classes = [permissions.IsAuthenticated]
+#         elif self.action in ['update', 'partial_update', 'destroy']:
+#             permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+#         else:
+#             permission_classes = [permissions.AllowAny]
+#         return [permission() for permission in permission_classes]
+#
+#     def get_queryset(self):
+#         if pk := self.kwargs.get('pk'):
+#             return Woman.objects.filter(pk=pk)
+#         return Woman.objects.all()
+#
+#     @action(methods=['get'], detail=False)
+#     def category(self, request):
+#         cats = Category.objects.all()
+#         return Response({'cats': [c.name for c in cats]})
 
 
-class IndexProfileView(View):
-
-    def get(self, request):
-        return render(request, 'index.html', {'login_form': UserLogInForm()})
-
-    def post(self, request):
-        user = authenticate(username=request.POST.get('name'), password=request.POST.get('password'))
-        if user is not None:
-            login(request, user)
-            return redirect('profile')
-        messages.error(request, 'incorrect log/pass.')
-        return render(request, 'index.html', {'login_form': UserLogInForm()})
+class WomanListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Woman.objects.all()
+    serializer_class = WomanSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class UserProfileView(View):
-
-    def get(self, request):
-        if not request.user.is_anonymous:
-            return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
-        messages.info(request, 'Access not allowed. Please do authorizing.')
-        return render(request, 'access.html')
-
-    def post(self, request):
-        if CategoryCreatingForm(request.POST).is_valid():
-            new_category = Category(name=request.POST.get('name'))
-            new_category.save()
-            messages.info(request, f'New category {new_category.name} was added success', extra_tags='added')
-            return render(request, 'profile.html', {'new_category': CategoryCreatingForm})
+class WomanUpdateAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Woman.objects.all()
+    serializer_class = WomanSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
 
 
-class CustomLogout(LogoutView):
-    template_name = 'index.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        messages.info(request, 'You are logged out.')
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['login_form'] = UserLogInForm()
-        return context
-
+class WomanDeleteAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Woman.objects.all()
+    serializer_class = WomanSerializer
+    permission_classes = (IsAdminOrReadOnly,)

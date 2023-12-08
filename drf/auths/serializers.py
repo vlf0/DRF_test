@@ -4,6 +4,7 @@ from .models import Woman, DeletedPost, Category
 
 class WomanSerializer(serializers.ModelSerializer):
     kind_name = serializers.CharField(source='kind.name', read_only=True)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Woman
