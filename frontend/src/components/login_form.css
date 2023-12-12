@@ -44,6 +44,7 @@ span {
     color: #c9eaff;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    font-variant: all-petite-caps;
 }
 
 .login_form input[type="submit"]:hover {
@@ -55,7 +56,6 @@ input {
     background: beige;
     border: 1px solid #080808;
     border-radius: inherit;
-    font-variant: all-petite-caps;
     font-family: sans-serif;
     font-weight: bold;
 }
