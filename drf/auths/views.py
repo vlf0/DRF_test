@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework import decorators
 from rest_framework.response import Response
 from .models import Woman, Category
-from .serializers import WomanSerializer
+from .serializers import WomanSerializer, CustomUserSerializer
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 
 CustomUser = get_user_model()
@@ -21,7 +21,7 @@ class WomanViewSet(viewsets.ModelViewSet):
         elif self.action in ['update', 'partial_update', 'destroy']:
             permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
         else:
-            permission_classes = [permissions.AllowAny]
+            permission_classes = [permissions.IsAuthenticated]
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
@@ -33,6 +33,4 @@ class WomanViewSet(viewsets.ModelViewSet):
     def category(self, request):
         cats = Category.objects.all()
         return Response({'cats': [c.name for c in cats]})
-
-
 

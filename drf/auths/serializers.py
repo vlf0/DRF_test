@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import Woman, DeletedPost, Category
+from django.contrib.auth import get_user_model
+
+CustomUser = get_user_model()
 
 
 class WomanSerializer(serializers.ModelSerializer):
@@ -25,4 +28,11 @@ class DeletedPostSerializer(serializers.Serializer):
     def create(self, validated_data):
         deleted_post = DeletedPost.objects.create(**validated_data)
         return deleted_post
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'password')
+
 
