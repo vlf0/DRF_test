@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users',
     'auths',
+    'hospital_pg',
     'corsheaders',
 ]
 
