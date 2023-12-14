@@ -4,10 +4,9 @@
 
 from django.utils.translation import gettext as _
 from psycopg2 import OperationalError
-from psycopg2.errors import UndefinedTable
+from psycopg2.errors import UndefinedTable, SyntaxError
 import psycopg2
-from . import sql_queries
-
+# from hospital_pg import sql_queries
 
 
 class BaseConnectionDB:
@@ -22,6 +21,7 @@ class BaseConnectionDB:
     """
 
     conn = None
+    cursor = None
 
     def __init__(self, **kwargs):
         """
@@ -47,21 +47,40 @@ class BaseConnectionDB:
         try:
             self.conn = psycopg2.connect(user=self.user, password=self.password,
                                          dbname=self.dbname, host=self.host, port=self.port)
+            self.cursor = self.conn.cursor()
         except (OperationalError, UnicodeDecodeError) as connection_error:
             self.conn = f'Проверьте данные подключения к БД (порт). Оригинальный текст ошибки: \n{connection_error}'
             if type(connection_error) is UnicodeDecodeError:
                 self.conn = f'Проверьте данные подключения к БД. Неверные логин/пароль/хост.'
-
         return self.conn
     
-    def get_column_names(self):
+    def _get_columns_list(self):
         if type(self.conn) is str:
             return 'Class method get_column_names() can\'t be used with string object.'
-        cursor = self.conn.cursor()
-        cursor.execute(sql_queries.column_names_queryery)
-        column_names = cursor.fetchall()
+        result = self.check_query(self.cursor, "SELECT column_name FROM information_schema.columns WHERE table_schema = 'mm' AND table_name = 'dept';")
+        self.__close_connection
+        result = [column[0] for column in result]
+        return result
+
+    def __close_connection(self):
+        if type(self.conn) is str:
+            return
+        self.cursor.close()
         self.conn.close()
-        return column_names
+
+    def check_query(self, cursor, query):
+        """
+        Helper method to execute a SQL query and handle errors.
+
+        :param cursor: Database cursor.
+        :param query: (str) A pure SQL query.
+        :return: (list) Result set as a list of tuples or the exception object.
+        """
+        try:
+            cursor.execute(query)
+        except (UndefinedTable, SyntaxError) as err:
+            return err
+        return cursor.fetchall()
 
     def execute_query(self, query):
         """
@@ -69,19 +88,14 @@ class BaseConnectionDB:
 
         :param query: (str) A pure SQL query.
         :return: Result set as a list of tuples.
-                 In case of an undefined table (UndefinedTable exception),
-                 the exception object is returned as an error.
+        In case of an undefined table (UndefinedTable exception),
+        the exception object is returned as an error.
         """
         if type(self.conn) is str:
             return self.conn
-        cursor = self.conn.cursor()
-        try:
-            cursor.execute(query)
-        except UndefinedTable as err:
-            return err
-        queryset = cursor.fetchall()
-        self.conn.close()
-        return queryset
+        result = self.check_query(self.cursor, query)
+        self.__close_connection
+        return result
 
     def get_connection_data(self): 
         """
@@ -98,5 +112,6 @@ class BaseConnectionDB:
         }
 
 
-print(BaseConnectionDB().execute_query('SELECT * FROM mm.dept;'))
+# print(BaseConnectionDB().execute_query('SELECT * FROM mm.dept;'))
+# print(BaseConnectionDB()._get_columns_list())
 
