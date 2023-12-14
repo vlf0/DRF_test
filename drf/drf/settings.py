@@ -82,8 +82,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.IsAuthenticated',
     ],
 }
 
@@ -152,6 +152,11 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
+# LANGUAGES = [
+#     ('en', _('English')),
+#     ('ru', _('Russian')),
+# ]
+
 
 LANGUAGE_CODE = 'ru-RU'
 

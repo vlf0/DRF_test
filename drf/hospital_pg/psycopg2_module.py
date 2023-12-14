@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 """Describes connection and sql queries to Postgres DB."""
 
+from django.utils.translation import gettext as _
 from psycopg2 import OperationalError
 from psycopg2.errors import UndefinedTable
 import psycopg2
+from . import sql_queries
+
 
 
 class BaseConnectionDB:
@@ -12,7 +15,7 @@ class BaseConnectionDB:
     Describes connection to database.
 
     Kwargs accept all classic keywords arguments such is available in Postgres for user connection to DB.
-    Creates connection instance during initialization if connection to DB will success. 
+    Creates connection instance during initialization if connection to DB will success with given creds. 
 
     Attributes:
     - conn: The database connection instance if connection established success, otherwise is string with error text.
@@ -50,6 +53,15 @@ class BaseConnectionDB:
                 self.conn = f'Проверьте данные подключения к БД. Неверные логин/пароль/хост.'
 
         return self.conn
+    
+    def get_column_names(self):
+        if type(self.conn) is str:
+            return 'Class method get_column_names() can\'t be used with string object.'
+        cursor = self.conn.cursor()
+        cursor.execute(sql_queries.column_names_queryery)
+        column_names = cursor.fetchall()
+        self.conn.close()
+        return column_names
 
     def execute_query(self, query):
         """
@@ -68,17 +80,23 @@ class BaseConnectionDB:
         except UndefinedTable as err:
             return err
         queryset = cursor.fetchall()
+        self.conn.close()
         return queryset
 
-    def connection_data(self):
+    def get_connection_data(self): 
         """
         Print the connection parameters of the database.
 
-        :return: None
+        :return: (dict) Dictionary containing database connection parameters.
         """
-        print(self.dbname, self.host, self.port, self.user, self.password, sep='\n')
+        return {
+            'dbname': self.dbname,
+            'host': self.host,
+            'port': self.port,
+            'user': self.user,
+            'password': self.password
+        }
 
 
-print(BaseConnectionDB(user='postgres').execute_query('SELECT * FROM mm.dept;'))
-print(BaseConnectionDB.__doc__)
-print(help(BaseConnectionDB.__init__))
+print(BaseConnectionDB().execute_query('SELECT * FROM mm.dept;'))
+
