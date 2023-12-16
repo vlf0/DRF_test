@@ -14,8 +14,9 @@ class BaseSQLQueries:
 
 class FilterSQLQueries(BaseSQLQueries):
 
-    base_query = "SELECT * FROM mm.{} LIMIT 5;"
+    base_query = "SELECT id, name FROM mm.{} LIMIT 5;"
 
     def __init__(self, initial_value):
         super().__init__(initial_value)
+        self.base_query = self.base_query.format(initial_value)
 
