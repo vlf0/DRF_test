@@ -24,38 +24,31 @@ class HospDataBaseAPIView(APIView):
 
     raw_dataset = None
     serializer_class = None
-    mapping_func = None
 
     def error_handler(self):
-        if not self.raw_dataset:
+        if type(BaseConnectionDB()._get_columns_list()) is str:
+            return {'Error': 'Dataset is not passed.'}
+        elif not self.raw_dataset:
             return {'Error': 'Dataset is not passed.'}
         elif type(self.raw_dataset) is SyntaxError:
             return {'Error', str(self.raw_dataset)}
         elif not self.serializer_class:
             return {'Error': 'Serializer is not defined.'}
-        elif not self.mapping_func:
-            return {'Error': 'Mapping function is not defined.'}
 
     def get(self, request):
         if self.error_handler():
             return Response(self.error_handler())
-        
-#TODO: Need to create and implement custom serializer for PG data
-#TODO: and mapping column list with dataset list in one the same dict.  
-
-        # Works while explicitly defined  mapping_func attribute.
-        serializer = self.serializer_class(map(self.mapping_func, self.raw_dataset), many=True)
+        columns_list = BaseConnectionDB()._get_columns_list()
+        # In lambda func call  dataset_to_dict() with additional arg - column list
+        # for zipping with dataset rows
+        serializer = self.serializer_class(map(lambda item: dataset_to_dict(columns_list, item),
+                                               self.raw_dataset), many=True)
         return Response({'data': serializer.data})
     
 
 class ResearchListAPIView(HospDataBaseAPIView):
-    raw_dataset = BaseConnectionDB().execute_query('SELECT * FROM mm.dept;')
+    permission_classes = [permissions.AllowAny]
+    raw_dataset = BaseConnectionDB().execute_query('SELECT * FROM mm.dbkis;')
     serializer_class = HospDataSerializer
-    mapping_func = staticmethod(dataset_to_dict)
-
-
-
-
-
 
 

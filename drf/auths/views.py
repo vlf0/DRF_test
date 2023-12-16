@@ -21,7 +21,7 @@ class WomanViewSet(viewsets.ModelViewSet):
         elif self.action in ['update', 'partial_update', 'destroy']:
             permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
         else:
-            permission_classes = [permissions.IsAuthenticated]
+            permission_classes = [permissions.AllowAny]
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):

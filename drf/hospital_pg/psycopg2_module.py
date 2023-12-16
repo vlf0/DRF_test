@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from psycopg2 import OperationalError
 from psycopg2.errors import UndefinedTable, SyntaxError
 import psycopg2
-# from hospital_pg import sql_queries
+from .sql_queries import SQLQueries
 
 
 class BaseConnectionDB:
@@ -54,10 +54,10 @@ class BaseConnectionDB:
                 self.conn = f'Проверьте данные подключения к БД. Неверные логин/пароль/хост.'
         return self.conn
     
-    def _get_columns_list(self):
+    def _get_columns_list(self, table_name):
         if type(self.conn) is str:
             return 'Class method get_column_names() can\'t be used with string object.'
-        result = self.check_query(self.cursor, "SELECT column_name FROM information_schema.columns WHERE table_schema = 'mm' AND table_name = 'dept';")
+        result = self.check_query(self.cursor, SQLQueries().choose_table(table_name))
         self.__close_connection
         result = [column[0] for column in result]
         return result
