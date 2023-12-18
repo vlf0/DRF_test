@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-
-
 export function LogIn() {
     const [text, setText] = useState(null)
     const navigate = useNavigate();
@@ -21,9 +19,10 @@ export function LogIn() {
   
         // Save the token to local storage
         localStorage.setItem('userToken', token);
-        
+
+        /*
         // Request to fetch additional data after authentication
-        const responseUserData = await axios.get('http://localhost:8000/api/v1/hospdata/', {
+        const responseUserData = await axios.get('http://localhost:8000/api/v1/hospdata/dept/', {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -33,9 +32,10 @@ export function LogIn() {
 
         // Process the fetched user data (replace this with your logic)
         console.log('User Data:', userData);
-        
+        */
+
         // Redirect to the next page
-        navigate('/analysis', { state: { userData } });
+        navigate('/analysis');
       } catch (error) {
         console.error('Error:', error.response.status);
 

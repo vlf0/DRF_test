@@ -55,7 +55,7 @@ class HospDataBaseAPIView(APIView):
 class BaseListAPIView(HospDataBaseAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = HospDataSerializer
-    cursor = ChangingQueriesDB
+    # cursor = ChangingQueriesDB
     # query = FilterSQLQueries
 
 
