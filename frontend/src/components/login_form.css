@@ -1,18 +1,5 @@
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, #87CEEB, #00BFFF);
-}
 
-div#root {
-    display: contents;
-}
-
-span {
+.span {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -50,7 +37,7 @@ span {
     background: linear-gradient(359deg, #517ce1, #1343b3);
 }
 
-input {
+.input {
     background: beige;
     border: 1px solid #080808;
     border-radius: inherit;
