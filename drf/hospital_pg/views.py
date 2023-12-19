@@ -49,7 +49,7 @@ class HospDataBaseAPIView(APIView):
         # for zipping with dataset rows
         serializer = self.serializer_class(map(lambda item: dataset_to_dict(columns_list, item),
                                                self.raw_data), many=True)
-        return Response({'data': serializer.data})
+        return Response({'data': len(serializer.data)})
     
 
 class BaseListAPIView(HospDataBaseAPIView):

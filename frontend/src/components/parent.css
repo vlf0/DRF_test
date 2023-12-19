@@ -5,7 +5,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, #93c2ed, #78797ac2);
+  background: linear-gradient(to bottom, #88a7c5, #78797ac2);
 }
 
 div#root {
