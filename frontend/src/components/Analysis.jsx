@@ -4,6 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import DroppingMenu from './DroppingMenu'; 
 import "./menu_styles.css"
 import "./parent.css"
+import "./menu_point.css"
 
 
 function GetAnalysis() {
@@ -16,7 +17,7 @@ function GetAnalysis() {
   };
 
   const handleMouseLeave = () => {
-    setHovered(true);
+    setHovered(false);
   };
 
   const buttonSpring = useSpring({
@@ -29,7 +30,12 @@ function GetAnalysis() {
     transform: `scale(${isHovered ? 1 : 0})`,
     config: { duration: 300 },
   });
-  
+
+  const handleButtonClick = () => {
+    // Handle the button click logic, e.g., send POST request
+    console.log('Button inside DroppingMenu clicked!');
+    // Add your logic to send POST request here
+  };
 
   return (
     <div className="dashboard">
@@ -47,13 +53,21 @@ function GetAnalysis() {
         onMouseLeave={handleMouseLeave} // Close the menu when leaving the button
         style={menuSpring}
       > 
-
-      <ul className='menu_list'>
-        <li className='menu_p'>TEST</li>
-        <li className='menu_p'>TEST1</li>
-        <li className='menu_p'>TEST2</li>
-      </ul>
-
+        <ul className='menu_list'>
+         {[
+           { label: 'поступившие', buttons: ['текущие сутки', 'прошедшие сутки'] },
+           { label: 'выбывшие', buttons: ['текущие сутки', 'прошедшие сутки'] },
+           { label: 'TEST2', buttons: ['Отчет 1', 'отчет 2'] },
+         ].map(({ label, buttons }) => (
+           <DroppingMenu key={label} label={label}>
+             {buttons.map((buttonLabel) => (
+               <button key={buttonLabel} className='api_buttons' onClick={handleButtonClick}>
+                 {buttonLabel}
+               </button>
+             ))}
+           </DroppingMenu>
+         ))}
+        </ul>
       </animated.nav>
     </div>
   );

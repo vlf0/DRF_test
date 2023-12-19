@@ -25,12 +25,12 @@
 .menu_list {
   width: 95%;
   padding: 0;
+  margin: 0;
   list-style-type: none;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin: 20px;
 }
 
 .menu.active {
