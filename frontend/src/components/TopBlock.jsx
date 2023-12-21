@@ -8,14 +8,9 @@ const TopBlock = () => {
     to: { opacity: 1 },
     config: { duration: 1200 },
   });
-
+  
   const textContent = 'Оперативная сводка ГКБ им. Демихова'
-
   const currentDatetime = new Date().toLocaleDateString("ru-RU");
-
-  const inBlockInfoData = {
-    data: "Some data for InBlockInfo",
-  };
 
   return (
     <animated.div className='top_block' style={props}>

@@ -21,25 +21,31 @@
   margin-bottom: 0;
 }
 
-.headers {
+
+.chart_themes {
+  position: relative;
   font-family: sans-serif;
-  font-size: 25px;
-  color: #1f2225;
-  background: radial-gradient(#fff68a78, #6b88ba85);
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  color: #2a4968;
   padding: 10px;
-  border: 1px solid #8a8895;
-  border-radius: 3px;
   font-weight: bold;
   font-variant: all-small-caps;
   text-shadow: 3px 3px 12px #4d4d4d;
   text-align: center;
-  margin-top: 0;
 }
 
+.theme_lables {
+  margin: 10px;
+  font-size: 25px;
+}
+
+/* 
 .text_data {
   text-align: center;
   font-family: sans-serif;
   font-size: 25px;
   font-weight: bold;
   color: #1f2225;
-}
+} */

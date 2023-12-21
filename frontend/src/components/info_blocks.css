@@ -1,17 +1,5 @@
-.top_block {
-  position: absolute;
-  top: 0pc;
-  width: 98%;
-  box-shadow: 4px 13px 20px 0px #434343;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: radial-gradient(#fff68a78, #6b88ba85);
-  border: 1px solid #1e2630a1;
-  border-radius: 5px;
-  margin: 15px;
-}
 
+/* 
 .day_arrived {
   position: absolute;
   top: 10pc;
@@ -34,5 +22,5 @@
   box-shadow: 4px 13px 20px 0px #434343;
   border-radius: 10px;
   background: radial-gradient(#778ec654, #28529194);
-}
+} */
 
