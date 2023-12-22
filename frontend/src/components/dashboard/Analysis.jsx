@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
-import ArrivedChart from './charts/ArrivedChart';
-import TopBlock from './TopBlock';
-import "./info_blocks.css"
-import "./parent.css" 
-import "./block_texts.css"
+import ArrivedChart from '../charts/ArrivedChart';
+import TopBlock from '../menu/TopBlock';
+import BlockInfo from '../boards/BlockInfo';
+import "../parent.css" 
+
 
 function GetAnalysis() {
 console.log('GetAnalysis rendered');
@@ -23,10 +23,9 @@ console.log('GetAnalysis rendered');
     <>  
       <TopBlock />
       <animated.div className='dashboard' style={props}>
-        <div className='chart_themes'>
-          <p className='theme_lables'>Обратившиеся</p>
-          <ArrivedChart />
-        </div>
+        <BlockInfo headerText='Поступившие' data={[122, 147]}/>
+        <BlockInfo headerText='Выписанные' data={[54, 62]}/>
+        <BlockInfo headerText='Умершие' data={[12, 7]}/>
       </animated.div>
     </>
   );
