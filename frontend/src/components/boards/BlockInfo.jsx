@@ -14,7 +14,7 @@ const BlockInfo = ({data, headerText}) => {
     config: { duration: 900 },
   });
 
-
+  const imagePath = data && data[0] > data[1] ? '/images/dynamic_high.png' : '/images/dynamic_low.png';
 
   return (
     <animated.div className='boards' style={props}>
@@ -22,7 +22,7 @@ const BlockInfo = ({data, headerText}) => {
         <>
           <span className='headers'>{headerText}</span>
           <p className='text_data'>{data[0]}</p>
-          <img src="/images/dynamic_low.png" className="logo" />
+          <img src={imagePath} className='logo' alt=''/>
           <p className='text_data'>{data[1]}</p>
           
           {/* Add more properties as needed */}

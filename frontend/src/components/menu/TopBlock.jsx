@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
-import BlockInfo from '../boards/BlockInfo';
 import MenuUnit from './MenuUnit';
 import './top_block.css';
 
@@ -9,6 +8,8 @@ const arrivedpoint = 'Поступившие';
 const outpoint = 'Выписанные';
 const deadpoint = 'Умершие';
 const oarpoint = 'ОАР и ОРИТ';
+const refusingpoint = 'Отказано';
+const hosppoint = 'Госпитализировано';
 
 const TopBlock = () => {
   const [isHovered, setHovered] = useState(false);
@@ -46,6 +47,8 @@ const TopBlock = () => {
       <animated.div className='dropdown' style={dropdownProps}>
         {/* Add your dropdown content here */}
         <MenuUnit point={arrivedpoint}/>
+        <MenuUnit point={refusingpoint}/>
+        <MenuUnit point={hosppoint}/>
         <MenuUnit point={outpoint}/>
         <MenuUnit point={deadpoint}/>
         <MenuUnit point={oarpoint}/>
