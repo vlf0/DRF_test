@@ -4,8 +4,9 @@ import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import "./arrived_chart.css";
 
-// Chart.defaults.font.size = 12;
-// Chart.defaults.color = "blue";  
+
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#090b1f';  
 
 const ArrivedChart = () => {
     console.log('ArrivedChart rendered');
@@ -43,10 +44,18 @@ const ArrivedChart = () => {
         labels: ['СМП', 'План', 'Самотек'],
         datasets: [
             {
-                label: 'обратившиеся',
-                data: [45,160,100],//data ? [data.data, data.data, data.data] : [10,20,10],
-                backgroundColor: ["#289c22", '#3461a8', '#c49735'],
-                borderColor: "#f44345",
+                label: 'вчера',
+                data: [65,20,110],//data ? [data.data, data.data, data.data] : [10,20,10],
+                backgroundColor: ['#289c22', '#289c22', '#289c22'],
+                borderColor: '#090b1f',
+                borderWidth: 1,
+                // barThickness: 30
+            },
+            {
+                label: 'сегодня',
+                data: [42,30,94],//data ? [data.data, data.data, data.data] : [10,20,10],
+                backgroundColor: ['#c49735', '#c49735', '#c49735'],
+                borderColor: '#090b1f',
                 borderWidth: 1,
                 // barThickness: 30
             }
@@ -71,14 +80,14 @@ const ArrivedChart = () => {
             },
             y: {
                 // min: -20, // Set the minimum value
-                max: 200, // Set the maximum value
+                // max: 150, // Set the maximum value
                 grid: {
-                    display: false,
+                    // display: false,
                 },
                 ticks: {
                     beginAtZero: true,
                     color: '#090b1f',
-                    stepSize: 50, // Set the interval between ticks
+                    stepSize: 20, // Set the interval between ticks
                     font: {
                         // size: 14,
                         weight: 'bold' // Set the font weight to bold
@@ -87,13 +96,13 @@ const ArrivedChart = () => {
                 }
             },
         },
-        // barThickness: 'flex',
+        barThickness: 'flex',
         // maxBarThickness: 30,  
         barPercentage: 0.8, // Adjust the space between columns (0.8 means 80% of the available space)
         categoryPercentage: 0.8,
         plugins: {
             legend: {
-                display: false,
+                display: true,
             },
             title: {
                 display: true,

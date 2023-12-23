@@ -1,7 +1,8 @@
 
 .arrived_chart {
   position: relative;
-  height: max-content;
+  width: 420px;
+  height: 220px;
   padding: 10px;
   margin: 10px;
   border: 1px solid black;
