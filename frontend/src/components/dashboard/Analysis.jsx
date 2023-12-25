@@ -4,6 +4,8 @@ import { useSpring, animated } from 'react-spring';
 import ArrivedChart from '../charts/ArrivedChart';
 import TopBlock from '../menu/TopBlock';
 import BlockInfo from '../boards/BlockInfo';
+import HospRefuseChart from '../charts/HospRefuseChart';
+import InsuranceChart from '../charts/InsuranceChart';
 import "../parent.css" 
 import './dashboard_content.css'
 
@@ -34,9 +36,8 @@ console.log('GetAnalysis rendered');
         </div>
         <div className='board-charts'>
           <ArrivedChart />
-          <ArrivedChart />
-          <ArrivedChart />
-          <ArrivedChart />
+          <HospRefuseChart />
+          <InsuranceChart />
         </div>
       </animated.div>
     </>

@@ -8,61 +8,24 @@ import "./arrived_chart.css";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = '#090b1f';  
 
-const ArrivedChart = () => {
-    console.log('ArrivedChart rendered');
 
-    // const [data, setData] = useState(null);
+const HospRefuseChart = () => {
 
-    // Props for <animated.div> chart itself
-    // const props = useSpring({
-    //   from: { opacity: 0 },
-    //   to: { opacity: 1 },
-    //   config: { duration: 1200 },
-    // });
-
-    //Getting data by API
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch('http://localhost:8000/api/v1/hospdata/dbkis/');
-    //             const jsonData = await response.json();
-    //             setData(jsonData);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData(); // Fetch data when the component mounts
-    // }, []);
-
-    // if (data !== null) {
-    //     console.log([data.data, data.data, data.data]);
-    // };
-
-
-    const arrived_data = {
+    const hosp_refuse_data = {
         labels: ['Вчера', 'Сегодня'],
         datasets: [
             {
-                label: 'СМП',
-                data: [65,20],//data ? [data.data, data.data, data.data] : [10,20,10],
-                backgroundColor: ['#1b2c8d', '#1b2c8d', '#1b2c8d'],
+                label: 'Госпитализации',
+                data: [94, 84],//data ? [data.data, data.data, data.data] : [10,20,10],
+                backgroundColor: ['#289c22', '#289c22'],
                 borderColor: '#090b1f',
                 borderWidth: 1,
                 // barThickness: 30
             },
             {
-                label: 'План',
-                data: [42,96],//data ? [data.data, data.data, data.data] : [10,20,10],
-                backgroundColor: ['#6000a2', '#6000a2', '#6000a2'],
-                borderColor: '#090b1f',
-                borderWidth: 1,
-                // barThickness: 30
-            },
-            {
-                label: 'Самотек',
-                data: [112,39],//data ? [data.data, data.data, data.data] : [10,20,10],
-                backgroundColor: ['#00a279', '#00a279', '#00a279'],
+                label: 'Отказы',
+                data: [29, 15],//data ? [data.data, data.data, data.data] : [10,20,10],
+                backgroundColor: ['#994228', '#994228'],
                 borderColor: '#090b1f',
                 borderWidth: 1,
                 // barThickness: 30
@@ -107,14 +70,14 @@ const ArrivedChart = () => {
         barThickness: 'flex',
         // maxBarThickness: 30,  
         barPercentage: 0.9, // Adjust the space between columns (0.8 means 80% of the available space)
-        categoryPercentage: 0.7,
+        categoryPercentage: 0.6,
         plugins: {
             legend: {
                 display: true,
             },
             title: {
                 display: true,
-                text: 'Количество обратившихся по каналам обращения',
+                text: 'Отношение госпитализированных к отказным',
                 color: '#090b1f',
             },
         },
@@ -123,7 +86,7 @@ const ArrivedChart = () => {
     // Chart component
     return (
         <div className='arrived_chart'>
-          <Bar data={arrived_data} options={chartOptions} />
+          <Bar data={hosp_refuse_data} options={chartOptions} />
         </div>
 
         // Code for animation chart itself
@@ -131,6 +94,7 @@ const ArrivedChart = () => {
         //     <Bar data={arrived_data} options={chartOptions} />
         // </animated.div>
     );
-};
 
-export default ArrivedChart;
+}
+
+export default HospRefuseChart;
