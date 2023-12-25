@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
+import { Line } from 'react-chartjs-2';
+import 'chartjs-plugin-annotation';
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import "./arrived_chart.css";
@@ -10,34 +12,6 @@ Chart.defaults.color = '#090b1f';
 
 const ArrivedChart = () => {
     console.log('ArrivedChart rendered');
-
-    // const [data, setData] = useState(null);
-
-    // Props for <animated.div> chart itself
-    // const props = useSpring({
-    //   from: { opacity: 0 },
-    //   to: { opacity: 1 },
-    //   config: { duration: 1200 },
-    // });
-
-    //Getting data by API
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch('http://localhost:8000/api/v1/hospdata/dbkis/');
-    //             const jsonData = await response.json();
-    //             setData(jsonData);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-
-    //     fetchData(); // Fetch data when the component mounts
-    // }, []);
-
-    // if (data !== null) {
-    //     console.log([data.data, data.data, data.data]);
-    // };
 
 
     const arrived_data = {
@@ -89,19 +63,27 @@ const ArrivedChart = () => {
             y: {
                 // min: -20, // Set the minimum value
                 // max: 150, // Set the maximum value
+
                 grid: {
-                    // display: false,
-                },
-                ticks: {
-                    beginAtZero: true,
-                    color: '#090b1f',
-                    stepSize: 20, // Set the interval between ticks
-                    font: {
-                        // size: 14,
-                        weight: 'bold' // Set the font weight to bold
-                        
+                    display: true, // Display default grid lines
+                    color: (context) => {
+                        if (context.tick.value === 40) {
+                            return '#ff0000'; // Customize the color of the custom grid lines
+                        } else {
+                            return '#3e3e3e54'; // Default tick color
+                        }
                     },
-                }
+                },
+                
+                ticks: {
+                    color: (context) => {
+                        if (context.tick.value === 40) {
+                            return '#ff0000'; // Customize the color of the custom grid lines
+                        } else {
+                            return '#090b1f'; // Default tick color
+                        }
+                    },
+                },
             },
         },
         barThickness: 'flex',
