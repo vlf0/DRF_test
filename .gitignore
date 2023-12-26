@@ -39,6 +39,7 @@ share/python-wheels/
 MANIFEST
 pg_data/
 
+screens/
 
 
 # PyInstaller

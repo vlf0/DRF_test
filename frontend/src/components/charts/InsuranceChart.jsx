@@ -77,7 +77,7 @@ const InsuranceChart = () => {
                 // min: -20, // Set the minimum value
                 // max: 150, // Set the maximum value
                 grid: {
-                    // display: false,
+                    display: false,
                 },
                 ticks: {
                     beginAtZero: true,
