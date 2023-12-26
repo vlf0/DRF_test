@@ -72,6 +72,9 @@ const HospRefuseChart = () => {
         barPercentage: 0.9, // Adjust the space between columns (0.8 means 80% of the available space)
         categoryPercentage: 0.6,
         plugins: {
+            datalabels: {
+                display: false
+            },
             legend: {
                 display: true,
             },
