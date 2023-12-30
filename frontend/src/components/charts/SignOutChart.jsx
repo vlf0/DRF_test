@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import { Bar, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
@@ -7,6 +7,7 @@ import AnnotationPlugin from 'chartjs-plugin-annotation';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import current_date from '../dates/DatesFormat';
 import "./arrived_chart.css";
+
 
 Chart.register(AnnotationPlugin);
 Chart.register(ChartDataLabels);
@@ -16,38 +17,11 @@ Chart.defaults.font.size = 12;
 Chart.defaults.color = '#090b1f';  
 
 
-const ArrivedChart = () => {
+const SignOutChart = () => {
 
     const navigate = useNavigate();
 
     const plan = 60
-
-    // const chartRef = useRef();
-
-    // useEffect(() => {
-    //   if (chartRef.current) {
-    //     const chartInstance = chartRef.current.chartInstance;
-  
-    //     if (chartInstance) {
-    //       chartInstance.annotation.elements.push({
-    //         type: 'line',
-    //         mode: 'horizontal',
-    //         scaleID: 'y-axis-0',
-    //         value: 60,
-    //         borderColor: 'rgb(255, 99, 132)',
-    //         borderWidth: 2,
-    //         label: {
-    //           content: 'Annotation at 60',
-    //           enabled: true,
-    //           position: 'end',
-    //         },
-    //       });
-  
-
-    //     chartInstance.update(); // Update the chart to apply the changes
-    //   }
-    // }
-    // }, []);
 
 
     const arrived_data = {
@@ -162,12 +136,12 @@ const ArrivedChart = () => {
             },
             title: {
                 display: true,
-                text: 'Динамика обращений за неделю',
+                text: 'Динамика выписанных за неделю',
                 color: '#090b1f',
             },
         },
         onClick: function () {
-            var link = '/arrived';
+            var link = '/deads'; 
             navigate(link); // Changes the current page's URL
         }
     };
@@ -177,12 +151,7 @@ const ArrivedChart = () => {
         <div className='arrived_chart'>
           <Bar data={arrived_data} options={chartOptions} />
         </div>
-
-        // Code for animation chart itself
-        // <animated.div className='arrived_chart' style={props}>
-        //     <Bar data={arrived_data} options={chartOptions} />
-        // </animated.div>
     );
 };
 
-export default ArrivedChart;
+export default SignOutChart;

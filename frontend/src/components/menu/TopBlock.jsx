@@ -25,9 +25,11 @@ const TopBlock = () => {
   });
 
   const dropdownProps = useSpring({
-    height: isHovered ? 'auto' : 0,
+    transform: `scale(${isHovered ? 1 : 0})`,
+    height: isHovered ? 200 : 0,
     opacity: isHovered ? 1 : 0,
-    config: { tension: 300, friction: 30 },
+    config: { tension: 200, friction: 25 },
+    delay: isHovered ? 30 : 0,
   });
 
   const textContent = 'Оперативная сводка ГКБ им. Демихова';
@@ -46,12 +48,12 @@ const TopBlock = () => {
       {/* Dropdown */}
       <animated.div className='dropdown' style={dropdownProps}>
         {/* Add your dropdown content here */}
-        <MenuUnit point={arrivedpoint}/>
-        <MenuUnit point={refusingpoint}/>
-        <MenuUnit point={hosppoint}/>
-        <MenuUnit point={outpoint}/>
-        <MenuUnit point={deadpoint}/>
-        <MenuUnit point={oarpoint}/>
+        <MenuUnit point={arrivedpoint} to='/arrived_detail' />
+        <MenuUnit point={refusingpoint} to='/refuse_detail' />
+        <MenuUnit point={hosppoint} to='/hosp_detail' />
+        <MenuUnit point={outpoint} to='/signout_detail' />
+        <MenuUnit point={deadpoint} to='/deads_detail' />
+        <MenuUnit point={oarpoint} to='/OAR_detail' />
         {/* <MenuUnit point={}/> */}
       </animated.div>
     </animated.div>

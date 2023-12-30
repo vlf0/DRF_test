@@ -2,16 +2,15 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import ArrivedChart from '../charts/ArrivedChart';
+import SignOutChart from '../charts/SignOutChart';
+import DeadsChart from '../charts/DeadsChart';
 import TopBlock from '../menu/TopBlock';
 import BlockInfo from '../boards/BlockInfo';
-import HospRefuseChart from '../charts/HospRefuseChart';
-import InsuranceChart from '../charts/InsuranceChart';
 import "../parent.css" 
 import './dashboard_content.css'
 
 
 function GetAnalysis() {
-console.log('GetAnalysis rendered');
 
   const location = useLocation();
   const userData = location.state?.userData;
@@ -19,7 +18,7 @@ console.log('GetAnalysis rendered');
   const props = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { duration: 1200 },
+    config: { duration: 1000 },
   });
 
   return (
@@ -36,8 +35,8 @@ console.log('GetAnalysis rendered');
         </div>
         <div className='board-charts'>
           <ArrivedChart />
-          <HospRefuseChart />
-          <InsuranceChart />
+          <SignOutChart />
+          <DeadsChart />
         </div>
       </animated.div>
     </>

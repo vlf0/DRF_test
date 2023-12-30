@@ -16,38 +16,11 @@ Chart.defaults.font.size = 12;
 Chart.defaults.color = '#090b1f';  
 
 
-const ArrivedChart = () => {
+const DeadsChart = () => {
 
     const navigate = useNavigate();
 
     const plan = 60
-
-    // const chartRef = useRef();
-
-    // useEffect(() => {
-    //   if (chartRef.current) {
-    //     const chartInstance = chartRef.current.chartInstance;
-  
-    //     if (chartInstance) {
-    //       chartInstance.annotation.elements.push({
-    //         type: 'line',
-    //         mode: 'horizontal',
-    //         scaleID: 'y-axis-0',
-    //         value: 60,
-    //         borderColor: 'rgb(255, 99, 132)',
-    //         borderWidth: 2,
-    //         label: {
-    //           content: 'Annotation at 60',
-    //           enabled: true,
-    //           position: 'end',
-    //         },
-    //       });
-  
-
-    //     chartInstance.update(); // Update the chart to apply the changes
-    //   }
-    // }
-    // }, []);
 
 
     const arrived_data = {
@@ -162,13 +135,14 @@ const ArrivedChart = () => {
             },
             title: {
                 display: true,
-                text: 'Динамика обращений за неделю',
+                text: 'Динамика умерших за неделю',
                 color: '#090b1f',
             },
+    
         },
         onClick: function () {
-            var link = '/arrived';
-            navigate(link); // Changes the current page's URL
+                var link = '/deads'; 
+                navigate(link); // Changes the current page's URL
         }
     };
 
@@ -177,12 +151,7 @@ const ArrivedChart = () => {
         <div className='arrived_chart'>
           <Bar data={arrived_data} options={chartOptions} />
         </div>
-
-        // Code for animation chart itself
-        // <animated.div className='arrived_chart' style={props}>
-        //     <Bar data={arrived_data} options={chartOptions} />
-        // </animated.div>
     );
 };
 
-export default ArrivedChart;
+export default DeadsChart;
