@@ -6,10 +6,8 @@ import './top_block.css';
 
 const arrivedpoint = 'Поступившие';
 const outpoint = 'Выписанные';
-const deadpoint = 'Умершие';
 const oarpoint = 'ОАР и ОРИТ';
-const refusingpoint = 'Отказано';
-const hosppoint = 'Госпитализировано';
+
 
 const TopBlock = () => {
   const [isHovered, setHovered] = useState(false);
@@ -26,7 +24,7 @@ const TopBlock = () => {
 
   const dropdownProps = useSpring({
     transform: `scale(${isHovered ? 1 : 0})`,
-    height: isHovered ? 200 : 0,
+    height: isHovered ? 100 : 0,
     opacity: isHovered ? 1 : 0,
     config: { tension: 200, friction: 25 },
     delay: isHovered ? 30 : 0,
@@ -43,16 +41,15 @@ const TopBlock = () => {
       onMouseLeave={handleToggleHover}
     >
       <p className='main_header'>{textContent}</p>
-      <span className='now_date'>{currentDatetime}</span>
+      <span className='now_date'>по состоянию на {currentDatetime}</span>
 
       {/* Dropdown */}
       <animated.div className='dropdown' style={dropdownProps}>
         {/* Add your dropdown content here */}
         <MenuUnit point={arrivedpoint} to='/arrived_detail' />
-        <MenuUnit point={refusingpoint} to='/refuse_detail' />
-        <MenuUnit point={hosppoint} to='/hosp_detail' />
+
         <MenuUnit point={outpoint} to='/signout_detail' />
-        <MenuUnit point={deadpoint} to='/deads_detail' />
+
         <MenuUnit point={oarpoint} to='/OAR_detail' />
         {/* <MenuUnit point={}/> */}
       </animated.div>

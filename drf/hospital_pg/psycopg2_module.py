@@ -6,7 +6,8 @@ from django.utils.translation import gettext as _
 from psycopg2 import OperationalError, ProgrammingError
 from psycopg2.errors import UndefinedTable, SyntaxError
 import psycopg2
-from .sql_queries import BaseSQLQueries, FilterSQLQueries
+from collections import Counter
+from .sql_queries import BaseSQLQueries, DeptFilterSQLQueries
 
 
 class BaseConnectionDB:
@@ -92,7 +93,7 @@ class BaseConnectionDB:
         """
         if type(self.conn) is str:
             return 'Class method get_column_names() can\'t be used with string object.'
-        result = self.check_query(self.cursor, BaseSQLQueries(table_name).column_names_query)
+        result = self.check_query(self.cursor, BaseSQLQueries.column_names_query)
         self._close_connection
         result = [column[0] for column in result]
         return result
@@ -120,7 +121,7 @@ class BaseConnectionDB:
             return err
         return cursor.fetchall()
 
-    def execute_query(self, table_name):
+    def execute_query(self):
         """
         Execute a SQL query and return the result set.
 
@@ -131,9 +132,15 @@ class BaseConnectionDB:
         """
         if type(self.conn) is str:
             return self.conn
-        result = self.check_query(self.cursor, BaseSQLQueries(table_name).base_limited_query)
+        result = self.check_query(self.cursor, BaseSQLQueries.base_query)
         self._close_connection
+        counted_dict = Counter([item[0] for item in result])
+        result = dict(counted_dict.items())
         return result
+    
+    def count_data(self, data):
+
+        pass
 
     def get_connection_data(self): 
         """
@@ -167,7 +174,7 @@ class ChangingQueriesDB(BaseConnectionDB):
         """
         if type(self.conn) is str:
             return self.conn
-        result = self.check_query(self.cursor, FilterSQLQueries(query).base_query)
+        result = self.check_query(self.cursor, DeptFilterSQLQueries(query).base_query)
         self._close_connection
         return result
 

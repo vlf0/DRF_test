@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import ArrivedChart from '../charts/ArrivedChart';
@@ -10,10 +10,23 @@ import "../parent.css"
 import './dashboard_content.css'
 
 
+function GetData() {
+
+  const [data, userData] = useState(null);
+
+  useEffect(() => {
+    fetch()
+  }
+  );
+
+  return (
+    userData
+  )
+}
+
 function GetAnalysis() {
 
   const location = useLocation();
-  const userData = location.state?.userData;
 
   const props = useSpring({
     from: { opacity: 0 },

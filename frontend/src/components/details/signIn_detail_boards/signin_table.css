@@ -1,0 +1,24 @@
+
+/* Add global styles for the table container */
+.my-table {
+  font-family: 'Arial', sans-serif;
+}
+  
+/* Style the table header */
+.my-table th {
+   background-color: #f2f2f2;
+   padding: 8px;
+   text-align: left;
+}
+  
+ /* Style the table body rows */
+.my-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+  
+/* Style alternate rows differently */
+.my-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+  

@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from .serializers import HospDataSerializer
 from .psycopg2_module import BaseConnectionDB, ChangingQueriesDB
 from .additional_funcs import dataset_to_dict
-from .sql_queries import BaseSQLQueries, FilterSQLQueries
+from .sql_queries import BaseSQLQueries, DeptFilterSQLQueries
 from psycopg2.errors import SyntaxError, UndefinedTable
 
 
@@ -22,8 +22,8 @@ class HospDataBaseAPIView(APIView):
 
     permission_classes = [permissions.AllowAny]
     cursor = BaseConnectionDB
-    # query = BaseSQLQueries
-    serializer_class = None
+    query = BaseSQLQueries
+    serializer_class = HospDataSerializer
     raw_data = None
 
     def error_handler(self, **kwargs):
@@ -39,23 +39,40 @@ class HospDataBaseAPIView(APIView):
             return {'Error', str(self.raw_data)}
 
     def get(self, request, *args, **kwargs):
-        self.raw_data = self.cursor().execute_query(kwargs.get('tab')) if kwargs \
-            else 'Method get is not allowed.'
+        self.raw_data = self.cursor().execute_query()
         if self.error_handler(**kwargs):
             return Response(self.error_handler())
-        # self.raw_data = self.cursor().execute_query(kwargs.get('tab'))
-        columns_list = self.cursor()._get_columns_list(kwargs.get('tab'))
-        # In lambda func call  dataset_to_dict() with additional arg - column list
-        # for zipping with dataset rows
-        serializer = self.serializer_class(map(lambda item: dataset_to_dict(columns_list, item),
-                                               self.raw_data), many=True)
-        return Response({'data': len(serializer.data)})
+
+        # columns_list = self.cursor()._get_columns_list(kwargs.get('tab'))
+        # # In lambda func call  dataset_to_dict() with additional arg - column list
+        # # for zipping with dataset rows
+        # serializer = self.serializer_class(map(lambda item: dataset_to_dict(columns_list, item),
+        #                                        self.raw_data), many=True)
+        # serializer = self.serializer_class(list(map(lambda item: {'status': item[0]}, self.raw_data)), many=True)
+        print(self.raw_data)
+        serializer = self.serializer_class(self.raw_data, many=True)
+        print(serializer)
+        print()
+        print(serializer.data)
+        return Response({'data': serializer.data})
     
 
 class BaseListAPIView(HospDataBaseAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = HospDataSerializer
-    # cursor = ChangingQueriesDB
-    # query = FilterSQLQueries
+    cursor = ChangingQueriesDB
+    query = DeptFilterSQLQueries
+
+    def get(self, request, *args, **kwargs):
+        self.raw_data = self.cursor().execute_query(kwargs.get('tab')) if kwargs \
+            else 'Method get is not allowed.'
+        columns_list = self.cursor()._get_columns_list(kwargs.get('tab'))
+        # # In lambda func call  dataset_to_dict() with additional arg - column list
+        # for zipping with dataset rows
+        serializer = self.serializer_class(map(lambda item: dataset_to_dict(columns_list, item),
+                                               self.raw_data), many=True)
+        # return Response({'data': serializer.data})
+        return super().get(request, *args, **kwargs)
+    
 
 
