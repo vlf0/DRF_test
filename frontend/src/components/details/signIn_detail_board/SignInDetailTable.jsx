@@ -2,27 +2,18 @@ import React from 'react';
 import { useTable } from 'react-table';
 import ScaleX from '../ScaleX';
 
-
-const SignInDetailTable = ({ arrivedFact }) => {
-  // Sample data
-  const data = [
-    { профиль: 'Хирургия' },
-    { профиль: 'Неврология' },
-    { профиль: 'Кардио' },
-  ];
-
+const SignInDetailTable = ({ data }) => {
   // Define columns
   const columns = [
     { Header: 'Профиль', accessor: 'профиль' },
-    { Header: 'План', accessor: 'план', Cell: () => <ScaleX arrivedFact={arrivedFact} /> },
+    { Header: 'План', accessor: 'план', Cell: ({ row }) => <ScaleX arrivedFact={row.original.план} /> },
   ];
-  console.log(arrivedFact);
+
   // Create a table instance
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
     <div className='detail_block_header'> ПЛАН/ФАКТ по профилям
-      {/* <h2> ПЛАН/ФАКТ по профилям </h2> */}
       <table className='signin-table' {...getTableProps()} >
         <thead>
           {headerGroups.map(headerGroup => (
