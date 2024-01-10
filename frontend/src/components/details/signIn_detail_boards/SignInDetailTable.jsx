@@ -1,28 +1,29 @@
 import React from 'react';
 import { useTable } from 'react-table';
+import ScaleX from '../ScaleX';
 
-const SignInDetailTable = () => {
+
+const SignInDetailTable = ({ arrivedFact }) => {
   // Sample data
   const data = [
-    { id: 1, name: 'John', age: 25 },
-    { id: 2, name: 'Jane', age: 30 },
-    { id: 3, name: 'Doe', age: 22 },
+    { профиль: 'Хирургия' },
+    { профиль: 'Неврология' },
+    { профиль: 'Кардио' },
   ];
 
   // Define columns
   const columns = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'Name', accessor: 'name' },
-    { Header: 'Age', accessor: 'age' },
+    { Header: 'Профиль', accessor: 'профиль' },
+    { Header: 'План', accessor: 'план', Cell: () => <ScaleX arrivedFact={arrivedFact} /> },
   ];
-
+  console.log(arrivedFact);
   // Create a table instance
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
-    <div>
-      <h2> ПЛАН/ФАКТ по профилям </h2>
-      <table className='my-table' {...getTableProps()} >
+    <div className='detail_block_header'> ПЛАН/ФАКТ по профилям
+      {/* <h2> ПЛАН/ФАКТ по профилям </h2> */}
+      <table className='signin-table' {...getTableProps()} >
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

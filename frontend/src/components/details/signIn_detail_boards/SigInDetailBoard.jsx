@@ -1,11 +1,12 @@
 import React from "react";
 import SignInDetailTable from "./SignInDetailTable";
+import ScaleX from "../ScaleX";
 import './detail_blocks.css';
 import './signin_table.css';
 
 
 
-const SignInDetailBoard = ({blockName, signInCount, refuseCount}) => {
+const SignInDetailBoard = ({ signInCount, refuseCount, arrivedFact }) => {
     return (
         <div className='detail_block'>
           <span className='detail_block_header'> Обратившиеся </span>
@@ -27,7 +28,7 @@ const SignInDetailBoard = ({blockName, signInCount, refuseCount}) => {
             <div className='separated_detail_block'> Москвичи <br></br><br></br> {1} </div>
             <div className='separated_detail_block'> Не указано <br></br><br></br> {1} </div>
           </div>
-          <SignInDetailTable />
+          <SignInDetailTable arrivedFact={arrivedFact}/>
         </div>
 
     );

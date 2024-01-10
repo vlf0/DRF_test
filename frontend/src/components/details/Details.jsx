@@ -22,7 +22,7 @@ function DetailBoard({textHeader, currentDatetime}) {
         <Header textHeader={textHeader} currentDatetime={currentDatetime}/>
       </animated.div>
       <animated.div className='dashboard' style={props}>
-        <SignInDetailBoard signInCount={30} refuseCount={10}/>
+        <SignInDetailBoard signInCount={30} refuseCount={10} arrivedFact={15}/>
         {/* <SignInDetailBoard blockName={'Гопитализированные по каналам'} /> */}
       </animated.div>
       </>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form enctype="multipart/form-data" method="POST">
+        <input type="file" name="invoice">
+        <input type="submit">
+        {% csrf_token %}
+    </form>
+    {{ response }}
+    {{ error }}
+</body>
+</html>
