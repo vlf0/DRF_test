@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTable } from 'react-table';
-import './signout_table.css';
+import '../signout_detail_board/signout_table.css';
 
 
-const deadsDetail = [
+const oarDetail = [
                       ['Иван', 126, 'муж', 43, '2.01.2024', 'тяжелое', 8, 'J06.9', 'U07.1'],
                       ['Ольга', 126, 'жен', 43, '4.01.2024', 'срежней тяжести', 5, 'G80.3', 'U07.1'],
                       ['Олег', 126, 'муж', 43, '7.01.2024', 'срежней тяжести', 4, 'E80.0', 'U07.2'],
@@ -23,9 +23,9 @@ const columnAccessorMap = {
 };
 
 
-const SignOutDetailTable = () => {
+const OARDetailTable = () => {
     // Sample data
-    const data = deadsDetail.map(tuple => {
+    const data = oarDetail.map(tuple => {
       return {
         'ФИО': tuple[columnAccessorMap['ФИО']],
         '№ ИБ': tuple[columnAccessorMap['№ ИБ']],
@@ -58,7 +58,7 @@ const SignOutDetailTable = () => {
 
     return (
       <div className='deads-table-container'>
-        <h2 className='detail_block_header'> Детализация по умершим </h2>
+        <h2 className='detail_block_header'> Детализация по отделению </h2>
         <table className='deads-table' {...getTableProps()} >
           <thead>
             {headerGroups.map(headerGroup => (
@@ -86,4 +86,4 @@ const SignOutDetailTable = () => {
     );
   };
 
-export default SignOutDetailTable;
+export default OARDetailTable;

@@ -6,7 +6,7 @@ const ColoredLine = ({ percentage, arrivedFact }) => {
   const gradient = `linear-gradient(to right, #828cff ${percentage}%, #e785fc ${percentage}%)`;
 
   const lineStyle = {
-    width: '500px',
+    width: '-webkit-fill-available',
     height: '18px', // Set the height of the line
     background: gradient,
     display: 'flex',

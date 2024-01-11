@@ -1,8 +1,11 @@
 import React from 'react';
+import current_date from '../dates/DatesFormat';
 import '../menu/top_block.css';
 
 
-const Header = ({textHeader, currentDatetime}) => {
+const Header = ({textHeader}) => {
+
+  const currentDatetime = new Date().toLocaleDateString('ru-RU');
 
   return (
     <>

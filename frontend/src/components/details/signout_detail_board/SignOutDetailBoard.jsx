@@ -29,7 +29,7 @@ const SignOutDetailBoard = ({ combinedData, profiles }) => {
     <div className='detail_block'>
       <span className='detail_block_header'> Исходы </span>
       <div className='blocks_container'>
-        <div className='separated_detail_block' onClick={toggleDeadTableVisibility}>
+        <div className='separated_detail_block_X' onClick={toggleDeadTableVisibility}>
           Смерть <br /><br /> {deadCount}
         </div>
         <div className='separated_detail_block'> Перевод в другую МО <br /><br /> {moveCount} </div>

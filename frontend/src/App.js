@@ -7,18 +7,13 @@ import DetailBoard from './components/details/Details';
 
 function App() {
 
-  const currentDatetime = new Date().toLocaleDateString('ru-RU');
 
   return (
       <Routes>
         <Route path="/" element={<GetAnalysis />} />
-
-        <Route path="/arrived_detail" element={<DetailBoard textHeader={'Детализация обратившихся'} currentDatetime={currentDatetime} />} />
-
-        <Route path="/signout_detail" element={<DetailBoard sign={'out'} textHeader={'Детализация выписанных'} currentDatetime={currentDatetime} />} />
-
-        <Route path="/OAR_detail" element={<DetailBoard textHeader={'Детализация реанимационных отделений'} currentDatetime={currentDatetime} />} />
-
+        <Route path="/arrived_detail" element={<DetailBoard sign={'in'} textHeader={'Детализация обратившихся'} />} />
+        <Route path="/signout_detail" element={<DetailBoard sign={'out'} textHeader={'Детализация выписанных'} />} />
+        <Route path="/OAR_detail" element={<DetailBoard sign={'oar'} textHeader={'Детализация реанимационных отделений'} />} />
       </Routes>
   );
 }

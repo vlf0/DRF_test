@@ -3,6 +3,7 @@ import { useSpring, animated } from 'react-spring';
 import Header from './Header';
 import SignInDetailBoard from './signIn_detail_board/SigInDetailBoard';
 import SignOutDetailBoard from './signout_detail_board/SignOutDetailBoard';
+import OARDetailBoard from './OAR_detail_board/OARDetailBoard';
 import '../menu/top_block.css';
 import '../dashboard/dashboard_content.css';
 
@@ -20,22 +21,31 @@ function DetailBoard({textHeader, currentDatetime, sign}) {
     config: { duration: 700 },
   }); 
 
-    return (
-      <>
-      <animated.div
-      className='top_block'
-      style={props}>
-        <Header textHeader={textHeader} currentDatetime={currentDatetime}/>
-      </animated.div>
-      <animated.div className='dashboard' style={props}>
-
-        {/* <SignInDetailBoard signInCount={30} refuseCount={10} combinedData={combinedData}/> */}
-        {sign === 'out' ? <SignOutDetailBoard profiles={profiles} /> : <SignInDetailBoard signInCount={30} refuseCount={10} combinedData={combinedData}/>}
-
-        {/* <SignInDetailBoard blockName={'Гопитализированные по каналам'} /> */}
-      </animated.div>
-      </>
-    );
+  let content;
+  if (sign === 'in') {
+    content = <SignInDetailBoard signInCount={30} refuseCount={10} combinedData={combinedData} />;
+  } else if (sign === 'out') {
+    content = <SignOutDetailBoard profiles={profiles} />;
+  } else if (sign === 'oar') {
+    content = <div className='detail_block'>
+              <OARDetailBoard dept={'ОРИТ №1'} values={[10,15,20]} /> 
+              <OARDetailBoard dept={'ОРИТ №2'} values={[33,19,24]} />
+              <OARDetailBoard dept={'ОРИТ №3'} values={[33,19,24]} />              
+              </div>
   }
+
+  return (
+    <>
+    <animated.div
+    className='top_block'
+    style={props}>
+      <Header textHeader={textHeader} currentDatetime={currentDatetime}/>
+    </animated.div>
+    <animated.div className='dashboard' style={props}>
+      {content}
+    </animated.div>
+    </>
+  );
+}
   
-  export default DetailBoard;
+export default DetailBoard;
