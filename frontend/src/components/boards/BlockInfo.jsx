@@ -9,9 +9,9 @@ const BlockInfo = ({data, headerText}) => {
   // const data = [112, 136]
 
   const props = useSpring({
-    from: { transform: 'translateY(100%)', opacity: 0 },
-    to: { transform: data ? 'translateY(0%)' : 'translateY(100%)', opacity: data ? 1 : 0 },
-    config: { duration: 900 },
+    from: { transform: 'scale(0)', opacity: 0 },
+    to: { transform: data ? 'scale(1)' : 'scale(0)', opacity: data ? 1 : 0 },
+    config: { duration: 500 },
   });
 
   const imagePath = data && data[0] > data[1] ? '/images/dynamic_high.png' : '/images/dynamic_low.png';
