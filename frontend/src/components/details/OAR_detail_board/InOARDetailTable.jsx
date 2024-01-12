@@ -22,7 +22,6 @@ const columnAccessorMap = {
 
 const InOARDetailTable = ({ departament }) => {
 
-  console.log(departament);
   // Sample data
   const filteredData = oarDetail.filter(tuple => tuple[columnAccessorMap['отделение']] === departament);
 
@@ -32,7 +31,7 @@ const InOARDetailTable = ({ departament }) => {
       'ФИО': tuple[columnAccessorMap['ФИО']],
       '№ ИБ': tuple[columnAccessorMap['№ ИБ']],
       'возраст': tuple[columnAccessorMap['возраст']],
-      'отделение': tuple[columnAccessorMap['отделение']],
+      // 'отделение': tuple[columnAccessorMap['отделение']],
       'лечащий врач': tuple[columnAccessorMap['лечащий врач']],
       'дигноз при поступлении': tuple[columnAccessorMap['дигноз при поступлении']],
     };
@@ -43,7 +42,7 @@ const InOARDetailTable = ({ departament }) => {
     { Header: 'ФИО', accessor: 'ФИО' },
     { Header: '№ ИБ', accessor: '№ ИБ' },
     { Header: 'Возраст', accessor: 'возраст' },
-    { Header: 'Отделение', accessor: 'отделение' },
+    // { Header: 'Отделение', accessor: 'отделение' },
     { Header: 'Лечащий врач', accessor: 'лечащий врач' },
     { Header: 'Дигноз при поступлении', accessor: 'дигноз при поступлении' },
   ];

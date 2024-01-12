@@ -68,6 +68,8 @@
   margin: 2px;
   width: -webkit-fill-available;
   margin-top: 15px;
+  background: radial-gradient(#3359a0, #518a92);
+  border-radius: 5px;
 }
 
 .blocks_container {

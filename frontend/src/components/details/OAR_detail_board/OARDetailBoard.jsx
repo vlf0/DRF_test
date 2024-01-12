@@ -61,9 +61,9 @@ const OARDetailBoard = ({ dept, values }) => {
         </div>
       </div>
       <animated.div style={springProps}>
-        {isOARTableVisible && tableType === "in" && <InOARDetailTable departament={selectedValue}/>}
-        {isOARTableVisible && tableType === "move" && <MoveOARDetailTable />}
-        {isOARTableVisible && tableType === "onTreatment" && <OnTreatmentOARDetailTable />}
+        {isOARTableVisible && tableType === "in" && <InOARDetailTable departament={selectedValue} />}
+        {isOARTableVisible && tableType === "move" && <MoveOARDetailTable departament={selectedValue} />}
+        {isOARTableVisible && tableType === "onTreatment" && <OnTreatmentOARDetailTable departament={selectedValue} />}
         {/* Add more conditions for other table types */}
       </animated.div> 
     </>
