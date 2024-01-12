@@ -4,38 +4,34 @@ import '../signout_detail_board/signout_table.css';
 
 
 const oarDetail = [
-                      ['Иван', 126, 'муж', 43, '2.01.2024', 'тяжелое', 8, 'J06.9', 'U07.1'],
-                      ['Ольга', 126, 'жен', 43, '4.01.2024', 'срежней тяжести', 5, 'G80.3', 'U07.1'],
-                      ['Олег', 126, 'муж', 43, '7.01.2024', 'срежней тяжести', 4, 'E80.0', 'U07.2'],
-                      ['Ольга', 126, 'жен', 43, '3.01.2024', 'крайне тяжелое', 9, 'K76.2', 'U07.1'],
+                      ['Иван', 126, 43, 'ОРИТ №1', 'Климов А.Е.', 3, 'J06.9'],
+                      ['Ольга', 126, 43, 'ОРИТ №1', 'Молунова В.В.', 6, 'G80.3'],
+                      ['Олег', 126, 43, 'ОРИТ №1', 'Красиков Е.Н.', 1, 'E80.0'],
+                      ['Ольга', 126, 43, 'ОРИТ №1', 'Быков А.И.', 4, 'K76.2'],
                     ];
 
 const columnAccessorMap = {
   'ФИО': 0,
   '№ ИБ': 1,
-  'пол': 2,
-  'возраст': 3,
-  'дата поступления': 4,
-  'состояние при поступлении': 5,
-  'кол-во койко дней': 6,
-  'дигноз при поступлении': 7,
-  'дигноз при выписке': 8,
+  'возраст': 2,
+  'отделение': 3,
+  'лечащий врач': 4,
+  'кол-во койко дней': 5,
+  'диагноз при поступлении': 6,
 };
 
 
-const OARDetailTable = () => {
+const OnTreatmentOARDetailTable = () => {
     // Sample data
     const data = oarDetail.map(tuple => {
       return {
         'ФИО': tuple[columnAccessorMap['ФИО']],
         '№ ИБ': tuple[columnAccessorMap['№ ИБ']],
-        'пол': tuple[columnAccessorMap['пол']],
         'возраст': tuple[columnAccessorMap['возраст']],
-        'дата поступления': tuple[columnAccessorMap['дата поступления']],
-        'состояние при поступлении': tuple[columnAccessorMap['состояние при поступлении']],
+        'отделение': tuple[columnAccessorMap['отделение']],
+        'лечащий врач': tuple[columnAccessorMap['лечащий врач']],
         'кол-во койко дней': tuple[columnAccessorMap['кол-во койко дней']],
-        'дигноз при поступлении': tuple[columnAccessorMap['дигноз при поступлении']],
-        'дигноз при выписке': tuple[columnAccessorMap['дигноз при выписке']],
+        'диагноз при поступлении': tuple[columnAccessorMap['диагноз при поступлении']],
       };
     });
   
@@ -43,14 +39,11 @@ const OARDetailTable = () => {
     const columns = [
       { Header: 'ФИО', accessor: 'ФИО' },
       { Header: '№ ИБ', accessor: '№ ИБ' },
-      { Header: 'Пол', accessor: 'пол' },
       { Header: 'Возраст', accessor: 'возраст' },
-      { Header: 'Дата поступления', accessor: 'дата поступления' },
-      { Header: 'Состояние при поступлении', accessor: 'состояние при поступлении' },
+      { Header: 'Отделение', accessor: 'отделение' },
+      { Header: 'Лечащий врач', accessor: 'лечащий врач' },
       { Header: 'Кол-во койко дней', accessor: 'кол-во койко дней' },
-      { Header: 'Дигноз при поступлении', accessor: 'дигноз при поступлении' },
-      { Header: 'Дигноз при выписке', accessor: 'дигноз при выписке' },
-
+      { Header: 'Диагноз при поступлении', accessor: 'диагноз при поступлении' },
     ];
   
     // Create a table instance
@@ -86,4 +79,4 @@ const OARDetailTable = () => {
     );
   };
 
-export default OARDetailTable;
+export default OnTreatmentOARDetailTable;
